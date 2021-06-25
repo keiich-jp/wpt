@@ -5,14 +5,15 @@
   SecureContext
 ] interface Sanitizer {
   constructor(optional SanitizerConfig sanitizerConfig = {});
-  DocumentFragment sanitize((DOMString or DocumentFragment or Document) input);
-  DOMString sanitizeToString((DOMString or DocumentFragment or Document) input);
+  DocumentFragment sanitize((DocumentFragment or Document) input);
+  Node? sanitizeFor(DOMString forElement, DOMString markup);
 };
 
 dictionary SanitizerConfig {
   sequence<DOMString> allowElements;
   sequence<DOMString> blockElements;
   sequence<DOMString> dropElements;
-  sequence<DOMString> allowAttributes;
-  sequence<DOMString> dropAttributes;
+  record<DOMString, sequence<DOMString>> allowAttributes;
+  record<DOMString, sequence<DOMString>> dropAttributes;
+  boolean allowCustomElements;
 };
